@@ -8,7 +8,6 @@ ARG KOHYA_VERSION=v21.8.6
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ENV DEBIAN_FRONTEND=noninteractive \
-    TZ=Africa/Johannesburg \
     PYTHONUNBUFFERED=1 \
     SHELL=/bin/bash
 
@@ -93,7 +92,9 @@ RUN git clone https://github.com/d8ahazard/sd_dreambooth_extension.git extension
     git clone https://github.com/Mikubill/sd-webui-controlnet.git extensions/sd-webui-controlnet && \
     git clone https://github.com/ashleykleynhans/a1111-sd-webui-locon.git extensions/a1111-sd-webui-locon && \
     git clone https://github.com/s0md3v/sd-webui-roop.git extensions/sd-webui-roop && \
-    git clone https://github.com/wcde/sd-webui-refiner.git extensions/sd-webui-refiner
+    git clone https://github.com/wcde/sd-webui-refiner.git extensions/sd-webui-refiner \
+    git clone https://github.com/camenduru/sd-civitai-browser extensions/sd-civitai-browser
+
 
 # Install depenencies for Deforum, ControlNet and roop
 RUN source /venv/bin/activate && \
@@ -161,9 +162,9 @@ RUN wget https://github.com/runpod/runpodctl/releases/download/v1.10.0/runpodctl
     mv runpodctl /usr/local/bin
 
 # Install CivitAI Model Downloader
-RUN git clone https://github.com/ashleykleynhans/civitai-downloader.git && \
-    mv civitai-downloader/download.sh /usr/local/bin/download-model && \
-    chmod +x /usr/local/bin/download-model
+# RUN git clone https://github.com/ashleykleynhans/civitai-downloader.git && \
+#     mv civitai-downloader/download.sh /usr/local/bin/download-model && \
+#     chmod +x /usr/local/bin/download-model
 
 # Copy Stable Diffusion Web UI config files
 COPY relauncher.py webui-user.sh config.json ui-config.json /stable-diffusion-webui/
